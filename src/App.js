@@ -1,19 +1,19 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addName } from "./store/namesSlice";
 import NameList from "./NameList";
 
 const App = (props) => {
-  const [names, setNames] = useState([]);
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setNames((prevState) => [...prevState, name]);
+    dispatch(addName(name))  
     setName("");
   };
 
-  const handleDelete = (_name) => {
-    setNames((prevState) => prevState.filter((name) => name !== _name));
-  };
+  
 
   return (
     <div>
@@ -27,7 +27,7 @@ const App = (props) => {
         />
         <button type="submit">Add</button>
       </form>
-      <NameList names={names} handleDelete={handleDelete} />
+      <NameList />
     </div>
   );
 };
